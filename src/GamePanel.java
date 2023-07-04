@@ -1,36 +1,33 @@
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.Random;
+import javax.swing.*;
+import java.awt.Graphics;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 
 public class GamePanel extends JPanel {
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private BufferedImage backgroundImage;
     GamePanel(){
         setVisible(true);
-        setBackground(new Color(138, 169, 14));
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize((int)(screenSize.getWidth()*0.50),(int)(screenSize.getHeight()*0.50));
-        double size=screenSize.getWidth()-screenSize.getWidth()*0.3;
-        setPreferredSize(new Dimension((int)size,(int)size));
+//        setBackground(new Color(18,218,59));
+        setBorder(BorderFactory.createLineBorder(new Color(15,179,31),10));
+        try {
+            backgroundImage = ImageIO.read(new File("src/background.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    public void paint (Graphics g){
-        g.setColor(new Color(128, 70, 27));
-        g.fillRect(0,0,(int)screenSize.getWidth(),10);
-
-        g.setColor(new Color(128, 70, 27));
-        g.fillRect(0,0,10,(int)screenSize.getHeight());
-
-        g.setColor(new Color(128, 70, 27));
-        g.fillRect(0,(int)screenSize.getHeight(),(int)screenSize.getWidth(),10);
-
-        g.setColor(new Color(128, 70, 27));
-        g.fillRect((int)screenSize.getWidth(),0,10,(int)screenSize.getHeight());
-
     }
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
+    }
+
+
+
 
 
 }

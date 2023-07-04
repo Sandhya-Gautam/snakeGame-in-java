@@ -1,79 +1,75 @@
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Insets;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
-class test extends JFrame{
-    test(){
-//        JButton p1=new JButton();
-//        JButton p2=new JButton();
-//        JButton p3=new JButton();
-//        setSize(500,500);
-//        p1.setBackground(Color.cyan);
-//        p2.setBackground(Color.black);
-//        p3.setBackground(Color.BLUE);
-//        setVisible(true);
-//        GridBagLayout layout=new GridBagLayout();
-//        setLayout(layout);
-//        GridBagConstraints gbc= new GridBagConstraints();
-//        gbc.weightx=1;
-//        gbc.weighty=1;
-//        gbc.gridx=0;
-//        gbc.gridy=0;
-//        gbc.gridwidth=2;
-//        gbc.fill=GridBagConstraints.HORIZONTAL;
-//        add(p1,gbc);
-//        gbc.gridx=1;
-//        gbc.gridy=1;
-//        gbc.gridheight=2;
-//        gbc.fill=GridBagConstraints.VERTICAL;
-//        add(p1,gbc);
-//        gbc.gridx=1;
-//        gbc.gridy=2;
-//        gbc.gridheight=2;
-//        gbc.fill=GridBagConstraints.VERTICAL;
-//        add(p3,gbc);
-//
-                setSize(200,200);
-                setTitle("Assessement");
-                JPanel one = new JPanel();
-                JPanel two = new JPanel();
-                JPanel three = new JPanel();
-                one.setBackground(Color.BLUE);
-                two.setBackground(Color.cyan);
-                three.setBackground(Color.BLACK);
-                setLayout(new GridBagLayout());
-// Create an object of GridBagConstraint
-                GridBagConstraints gbc = new GridBagConstraints();
-// components should expand to fill the available space
-// so set the fill contraint to BOTH
-                gbc.fill = GridBagConstraints.BOTH;
-// set the weight of x and y to non zero value
-                gbc.weightx =1;
-                gbc.weighty=1;
+public class test {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Panel Border Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-// Since the height of the button one is twice compared to others
-// set the constraint height to 2
-                gbc.gridwidth = 2;
-// this button has x and y =0
-                gbc.gridx = 0;
-                gbc.gridy = 0;
-// add the first button
-                add(one,gbc);
-// set the height back to one
-                gbc.gridwidth=1;
-                gbc.gridheight = 2;
+        JPanel panel = new JPanel();
 
-// button two is at x =1 and y =0
-                gbc.gridx = 0;
-                gbc.gridy = 1;
-                add(two, gbc);
-// button four has the double width and its x =1 and y=1
-                gbc.gridx = 1;
-                gbc.gridy = 1;
-                add(three, gbc);
-                setVisible(true);
-                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // Load the image for the pattern
+        BufferedImage patternImage = null;
+        try {
+            patternImage = ImageIO.read(new File("border.png")); // Replace with the path to your image
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Create a custom border using the image pattern
+        Border imagePatternBorder = new CustomImagePatternBorder(patternImage, 10); // Replace 10 with desired border width
+
+        // Apply the custom border to the panel
+        panel.setBorder(BorderFactory.createCompoundBorder(imagePatternBorder, new EmptyBorder(10, 10, 10, 10))); // Replace 10 with desired padding
+
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setSize(300, 300);
+        frame.setVisible(true);
+    }
+
+    // Custom Border implementation that uses an image pattern
+    private static class CustomImagePatternBorder implements Border {
+        private BufferedImage image;
+        private int borderWidth;
+
+        public CustomImagePatternBorder(BufferedImage image, int borderWidth) {
+            this.image = image;
+            this.borderWidth = borderWidth;
+        }
+
+        @Override
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            int imgWidth = image.getWidth();
+            int imgHeight = image.getHeight();
+
+            for (int i = 0; i < width; i += imgWidth) {
+                for (int j = 0; j < height; j += imgHeight) {
+                    g.drawImage(image, x + i, y + j, null);
+                }
             }
-    public static void main(String args[]){
-        new test();
+        }
+
+        @Override
+        public Insets getBorderInsets(Component c) {
+            return new Insets(borderWidth, borderWidth, borderWidth, borderWidth);
+        }
+
+        @Override
+        public boolean isBorderOpaque() {
+            return true;
+        }
     }
 }
+

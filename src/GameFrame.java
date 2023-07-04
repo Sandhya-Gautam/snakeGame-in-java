@@ -17,12 +17,10 @@ public class GameFrame extends JFrame  {
             setSize((int) screenSize.getWidth(), (int) screenSize.getHeight());
             double size=screenSize.getWidth()-screenSize.getWidth()*0.3;
             gameBase.setSize((int)size,(int)size);
-//            gameBase.setBackground(green);
-//            score.setBackground(pink);
-            this.getContentPane().setBackground(gray);
+            this.getContentPane().setBackground(new Color(151,217,164));
             setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
-            gbc.insets= new Insets(30,30,30,30);
+            gbc.insets= new Insets(10,10,10,10);
             gbc.fill = GridBagConstraints.BOTH;
             gbc.weightx =1;
             gbc.weighty=1;
