@@ -13,6 +13,10 @@ public class taskbar extends JPanel{
         newgame = new JButton("New Game");
         pause = new JButton("Pause");
         help = new JButton("Help");
+        home.setFont(new Font("Rust",Font.BOLD,20));
+        newgame.setFont(new Font("Rust",Font.BOLD,20));
+        pause.setFont(new Font("Rust",Font.BOLD,20));
+        help.setFont(new Font("Rust",Font.BOLD,20));
         setVisible(true);
         setBackground(new Color(121, 198, 136));
         GridBagLayout layout = new GridBagLayout();
