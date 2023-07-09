@@ -1,0 +1,81 @@
+*{
+    padding:0;
+    margin-right:0
+}
+body
+{
+    background: url(nyokaback.jpg) no-repeat;
+    background-size: cover;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-family: sans-serif;
+}
+.container
+{
+     /* position: relative; */
+     margin-top: 90px;
+     width: 400px;
+     height: auto;
+     /* background-color:rgb(35, 76, 35); */
+     border-radius: 10px;
+     justify-content: center;
+     opacity: .9;
+    
+}
+.label
+{
+    padding: 2px 3px 0px 130px;
+    font-size: 40px;
+    font-family: serif;
+    color: #065a03;
+}
+.reg_form
+{
+    padding: 2px 10px 10px 45px ;
+}
+.reg_form input
+{
+    height:40px;
+    width:310px;
+    padding: 8px 0 0px;
+    font-size: 16px;
+    outline: none;
+    border: 1px solid silver;
+}
+.reg_form .font
+{
+    margin-top:15px;
+}
+.reg_form button
+{
+    
+    margin: 20px 0;
+    height:45px;
+    width: 320px; 
+    font-size: 20px;
+    color:white;
+    outline: none;
+    cursor: pointer;
+    font-weight:lighter;
+    background: #189a14;
+    border-radius: 3px;
+    border: 1px solid #3949AB;
+    transition: .5s;
+}
+.reg_form button:hover
+{
+    background: #018903;
+}
+.form-link
+{
+    text-align: center;
+    margin-top: 10px;
+    padding: 0 10px 15px 0;
+}
+.form-link span,
+.form-link a
+{
+    font-size: 14px;
+    font-weight:400;
+}
