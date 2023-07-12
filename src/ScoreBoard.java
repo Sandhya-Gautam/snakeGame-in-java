@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class  ScoreBoard extends JPanel {
     String user_Name, labelString;
-    private BufferedImage backgroundImage;
+    BufferedImage backgroundImage;
     JPanel data,logo;
     JLabel score,time,level, uN;
     ScoreBoard(){
@@ -35,7 +35,7 @@ public class  ScoreBoard extends JPanel {
          add(logo);add(level); add(uN);
         add(data);
         try {
-            backgroundImage = ImageIO.read(new File("logo.png"));
+            backgroundImage = ImageIO.read(new File("src/logo.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

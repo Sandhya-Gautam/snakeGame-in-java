@@ -7,6 +7,8 @@ public class Main {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
 
+        }catch (NullPointerException e){
+            System.out.println(e.getMessage());
         }
     }
 }

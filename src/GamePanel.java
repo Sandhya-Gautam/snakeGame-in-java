@@ -12,14 +12,12 @@ import java.util.List;
 import java.util.Random;
 
 public class GamePanel extends JPanel implements KeyListener {
-
+    private  int WIDTH;
+    private  int HEIGHT;
     private BufferedImage backgroundImage;
     private BufferedImage snakeBodyImage;
 
     private static final int UNIT_SIZE = 20;
-//    private static final int WIDTH = 800;
-//    private static final int HEIGHT = 600;
-//    private static final int GAME_UNITS = (WIDTH * HEIGHT) / (UNIT_SIZE * UNIT_SIZE);
     private static final int DELAY = 200;
 
     private final List<Integer> snakeX;
@@ -32,29 +30,32 @@ public class GamePanel extends JPanel implements KeyListener {
     private int score;
 
     public GamePanel() {
-        setVisible(true);
-        setFocusable(true);
+//        setFocusable(true);
+        Dimension PanelSize = this.getSize();
+        WIDTH =(int)PanelSize.getWidth();
+        HEIGHT =(int) PanelSize.getHeight();
         addKeyListener(this);
-
         snakeX = new ArrayList<>();
         snakeY = new ArrayList<>();
         direction = 'R';
         isRunning = false;
         score = 0;
+        System.out.println(WIDTH);
         setBorder(BorderFactory.createLineBorder(new Color(15, 179, 31), 10));
         try {
-            snakeBodyImage = ImageIO.read(new File("snake.png"));
-            backgroundImage = ImageIO.read(new File("background.png"));
+            snakeBodyImage = ImageIO.read(new File("src/snake.png"));
+            backgroundImage = ImageIO.read(new File("src/background.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        startGame();
+       startGame();
+
     }
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (backgroundImage != null) {
-            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            g.drawImage(backgroundImage, 0, 0, (int) WIDTH, (int) HEIGHT, this);
         }
         for (int i = 0; i < snakeX.size(); i++) {
             if (i == 0) {
@@ -77,7 +78,7 @@ public class GamePanel extends JPanel implements KeyListener {
         // Game over message
         if (!isRunning) {
             g.setFont(new Font("Arial", Font.BOLD, 40));
-            g.drawString("Game Over", getWidth() / 2 - 100, getHeight() / 2);
+            g.drawString("Game Over", (int) WIDTH / 2 - 100, (int)HEIGHT / 2);
         }
     }
 
@@ -91,6 +92,7 @@ public class GamePanel extends JPanel implements KeyListener {
         isRunning = true;
         timer = new Timer(DELAY, e -> gameLoop());
         timer.start();
+        gameLoop();
     }
 
     public void gameLoop() {
@@ -105,7 +107,7 @@ public class GamePanel extends JPanel implements KeyListener {
     }
 
     public void move() {
-        for (int i = snakeX.size() - 1; i > 0; i--) {
+        for (int i = (snakeX.size()) - 1; i > 0; i--) {
             snakeX.set(i, snakeX.get(i - 1));
             snakeY.set(i, snakeY.get(i - 1));
         }
@@ -120,7 +122,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
     public void checkCollision() {
         // Check if snake collides with itself
-        for (int i = 1; i < snakeX.size(); i++) {
+        for (int i = 1; i < (snakeX.size()); i++) {
             if (snakeX.get(i).equals(snakeX.get(0)) && snakeY.get(i).equals(snakeY.get(0))) {
                 isRunning = false;
                 break;
@@ -128,12 +130,12 @@ public class GamePanel extends JPanel implements KeyListener {
         }
 
         // Check if snake collides with the boundaries
-        if (snakeX.get(0) < 0 || snakeX.get(0) >= getWidth() || snakeY.get(0) < 0 || snakeY.get(0) >= getHeight()) {
+        if (snakeX.get(0) < 0 || (snakeX.get(0) )>= WIDTH || (snakeY.get(0)) < 0 || (snakeY.get(0))>= HEIGHT) {
             isRunning = false;
         }
 
         // Check if snake collides with the apple
-        if (snakeX.get(0).equals(appleX) && snakeY.get(0).equals(appleY)) {
+        if ((snakeX.get(0)).equals(appleX) && snakeY.get(0).equals(appleY)) {
             // Increase the score and generate a new apple
             score++;
             generateApple();
@@ -146,8 +148,8 @@ public class GamePanel extends JPanel implements KeyListener {
 
     public void generateApple() {
         Random random = new Random();
-        appleX = random.nextInt((getWidth() / UNIT_SIZE)) * UNIT_SIZE;
-        appleY = random.nextInt((getHeight() / UNIT_SIZE)) * UNIT_SIZE;
+        appleX = random.nextInt((int)(WIDTH / UNIT_SIZE)) * UNIT_SIZE;
+        appleY = random.nextInt((int)(HEIGHT / UNIT_SIZE)) * UNIT_SIZE;
     }
 
     @Override

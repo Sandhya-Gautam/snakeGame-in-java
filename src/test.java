@@ -142,7 +142,7 @@ public class test extends JPanel implements KeyListener {
         // Game over message
         if (!isRunning) {
             g.setFont(new Font("Arial", Font.BOLD, 40));
-            g.drawString("Game Over", WIDTH / 2 - 100, HEIGHT / 2);
+            g.drawString("Game Over", ((int) WIDTH / 2) - 100, ((int) HEIGHT / 2));
         }
     }
 
