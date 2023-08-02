@@ -13,13 +13,14 @@ public class  ScoreBoard extends JPanel {
     JLabel score,time,level, uN;
     ScoreBoard(){
         user_Name="Username:";
-        labelString="Level:4";
+        labelString="Level:";
         data= new JPanel();
         logo= new JPanel();
         level= new JLabel(labelString);
         setBackground(new Color(121,198,136));
         setForeground(Color.green);
         data.setBackground(new Color(121,198,136));
+        logo.setBackground(new Color(121,198,136));
         uN = new JLabel(user_Name);
         score=new JLabel("Score:");
         time= new JLabel("Time:");
@@ -37,13 +38,13 @@ public class  ScoreBoard extends JPanel {
         try {
             backgroundImage = ImageIO.read(new File("src/logo.png"));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (backgroundImage != null) {
-            g.drawImage(backgroundImage, logo.getX(), logo.getY(), logo.getWidth(), logo.getHeight(), logo);
+            g.drawImage(backgroundImage, 10, 20, 50, 34, logo);
         }
     }
 

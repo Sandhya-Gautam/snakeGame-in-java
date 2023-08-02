@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 //import java.awt.Container;
 
 import static java.awt.Color.*;
@@ -13,10 +15,9 @@ public class GameFrame extends JFrame  {
         score = new ScoreBoard();
         gameBase = new GamePanel();
         task=new taskbar();
+        setResizable(false);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setSize((int) screenSize.getWidth(), (int) screenSize.getHeight());
-        double size=screenSize.getWidth()-screenSize.getWidth()*0.3;
-//        gameBase.setSize(gameBase.getWidth(), gameBase.getHeight());
         this.getContentPane().setBackground(new Color(151,217,164));
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -43,9 +44,8 @@ public class GameFrame extends JFrame  {
         add(gameBase, gbc);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-
+        setLocationRelativeTo(null);
+        gameBase.getStart(taskbar.isStart());
     }
 
 }

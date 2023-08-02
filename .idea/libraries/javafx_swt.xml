@@ -1,0 +1,51 @@
+<component name="libraryTable">
+  <library name="javafx-swt">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/.." />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$PROJECT_DIR$" />
+    </CLASSES>
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+      <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
+    </NATIVE>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/.." />
+      <root url="file://$PROJECT_DIR$/.." />
+      <root url="file://$PROJECT_DIR$/../FX/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../LabExam" />
+      <root url="file://$PROJECT_DIR$/../LabExam/src" />
+      <root url="file://$PROJECT_DIR$/../Snake/src" />
+      <root url="file://$PROJECT_DIR$/../examm/src" />
+      <root url="file://$PROJECT_DIR$/../fx/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../practice/src" />
+      <root url="file://$PROJECT_DIR$/../test/src" />
+      <root url="file://$PROJECT_DIR$/src" />
+    </SOURCES>
+    <jarDirectory url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/.." recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$PROJECT_DIR$/.." recursive="false" type="SOURCES" />
+  </library>
+</component>

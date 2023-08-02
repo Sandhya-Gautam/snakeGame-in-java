@@ -14,10 +14,11 @@ import java.util.Random;
 public class GamePanel extends JPanel implements KeyListener {
     private  int WIDTH;
     private  int HEIGHT;
+
     private BufferedImage backgroundImage;
     private BufferedImage snakeBodyImage;
 
-    private static final int UNIT_SIZE = 20;
+    private static final int UNIT_SIZE = 25;
     private static final int DELAY = 200;
 
     private final List<Integer> snakeX;
@@ -30,17 +31,16 @@ public class GamePanel extends JPanel implements KeyListener {
     private int score;
 
     public GamePanel() {
-//        setFocusable(true);
-        Dimension PanelSize = this.getSize();
-        WIDTH =(int)PanelSize.getWidth();
-        HEIGHT =(int) PanelSize.getHeight();
+        setFocusable(true);
         addKeyListener(this);
+        Dimension panelSize=getMaximumSize();
+        WIDTH=(int) panelSize.getWidth()/24-20;
+        HEIGHT= (int)panelSize.getHeight()/37+25;
         snakeX = new ArrayList<>();
         snakeY = new ArrayList<>();
         direction = 'R';
         isRunning = false;
         score = 0;
-        System.out.println(WIDTH);
         setBorder(BorderFactory.createLineBorder(new Color(15, 179, 31), 10));
         try {
             snakeBodyImage = ImageIO.read(new File("src/snake.png"));
@@ -48,39 +48,8 @@ public class GamePanel extends JPanel implements KeyListener {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-       startGame();
-
     }
 
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        if (backgroundImage != null) {
-            g.drawImage(backgroundImage, 0, 0, (int) WIDTH, (int) HEIGHT, this);
-        }
-        for (int i = 0; i < snakeX.size(); i++) {
-            if (i == 0) {
-                g.drawImage(snakeBodyImage, snakeX.get(i), snakeY.get(i), UNIT_SIZE, UNIT_SIZE, this);
-            } else {
-                g.setColor(Color.green);
-                g.fillRect(snakeX.get(i), snakeY.get(i), UNIT_SIZE, UNIT_SIZE);
-            }
-        }
-
-        // Draw the apple
-        g.setColor(Color.red);
-        g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
-
-        // Draw the score
-        g.setColor(Color.white);
-        g.setFont(new Font("Arial", Font.BOLD, 20));
-        g.drawString("Score: " + score, 10, 25);
-
-        // Game over message
-        if (!isRunning) {
-            g.setFont(new Font("Arial", Font.BOLD, 40));
-            g.drawString("Game Over", (int) WIDTH / 2 - 100, (int)HEIGHT / 2);
-        }
-    }
 
     public void startGame() {
         snakeX.clear();
@@ -88,7 +57,6 @@ public class GamePanel extends JPanel implements KeyListener {
         snakeX.add(0); // starting head position
         snakeY.add(0);
         generateApple();
-
         isRunning = true;
         timer = new Timer(DELAY, e -> gameLoop());
         timer.start();
@@ -100,10 +68,10 @@ public class GamePanel extends JPanel implements KeyListener {
             timer.stop();
             return;
         }
-
         move();
         checkCollision();
         repaint();
+
     }
 
     public void move() {
@@ -113,10 +81,10 @@ public class GamePanel extends JPanel implements KeyListener {
         }
 
         switch (direction) {
-            case 'U' -> snakeY.set(0, snakeY.get(0) - UNIT_SIZE);
-            case 'D' -> snakeY.set(0, snakeY.get(0) + UNIT_SIZE);
-            case 'L' -> snakeX.set(0, snakeX.get(0) - UNIT_SIZE);
-            case 'R' -> snakeX.set(0, snakeX.get(0) + UNIT_SIZE);
+            case 'U' : snakeY.set(0, snakeY.get(0) - UNIT_SIZE);
+            case 'D' : snakeY.set(0, snakeY.get(0) + UNIT_SIZE);
+            case 'L' : snakeX.set(0, snakeX.get(0) - UNIT_SIZE);
+            case 'R' : snakeX.set(0, snakeX.get(0) + UNIT_SIZE);
         }
     }
 
@@ -130,12 +98,12 @@ public class GamePanel extends JPanel implements KeyListener {
         }
 
         // Check if snake collides with the boundaries
-        if (snakeX.get(0) < 0 || (snakeX.get(0) )>= WIDTH || (snakeY.get(0)) < 0 || (snakeY.get(0))>= HEIGHT) {
+        if (snakeX.get(0) < 0 || (snakeX.get(0) )>= WIDTH-5 || (snakeY.get(0)) < 0 || (snakeY.get(0))>= HEIGHT-5) {
             isRunning = false;
         }
 
         // Check if snake collides with the apple
-        if ((snakeX.get(0)).equals(appleX) && snakeY.get(0).equals(appleY)) {
+        if (snakeX.get(0).equals(appleX) && snakeY.get(0).equals(appleY)) {
             // Increase the score and generate a new apple
             score++;
             generateApple();
@@ -148,17 +116,40 @@ public class GamePanel extends JPanel implements KeyListener {
 
     public void generateApple() {
         Random random = new Random();
-        appleX = random.nextInt((int)(WIDTH / UNIT_SIZE)) * UNIT_SIZE;
-        appleY = random.nextInt((int)(HEIGHT / UNIT_SIZE)) * UNIT_SIZE;
+        appleX = random.nextInt(((WIDTH-10) / UNIT_SIZE)) * UNIT_SIZE;
+        appleY = random.nextInt(((HEIGHT-10) / UNIT_SIZE)) * UNIT_SIZE;
     }
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0,  WIDTH,HEIGHT, this);
+        }
+        for (int i = 0; i < snakeX.size(); i++) {
+            if (i == 0) {
+                g.drawImage(snakeBodyImage, snakeX.get(i)+10, snakeY.get(i)+10, UNIT_SIZE, UNIT_SIZE, this);
+            } else {
+                g.setColor(Color.green);
+                g.fillRect(snakeX.get(i)+10, snakeY.get(i)+10, UNIT_SIZE, UNIT_SIZE);
+            }
+        }
 
+        // Draw the apple
+        g.setColor(Color.red);
+        g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
+
+        // Game over message
+        if (!isRunning) {
+            g.setFont(new Font("Arial", Font.BOLD, 40));
+            g.drawString("Game Over",  WIDTH / 2 - 100, HEIGHT / 2);
+        }
+
+    }
     @Override
     public void keyTyped(KeyEvent e) {
     }
-
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_UP && direction != 'D') {
+        if (e.getKeyCode()==KeyEvent.VK_UP  && direction != 'D') {
             direction = 'U';
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN && direction != 'U') {
             direction = 'D';
@@ -168,8 +159,12 @@ public class GamePanel extends JPanel implements KeyListener {
             direction = 'R';
         }
     }
-
     @Override
     public void keyReleased(KeyEvent e) {
+    }
+    public void getStart(boolean start){
+        if(start=true){
+            startGame();
+        }
     }
 }
