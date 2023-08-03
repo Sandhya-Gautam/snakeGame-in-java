@@ -32,7 +32,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
     public GamePanel() {
         setFocusable(true);
-        addKeyListener(this);
         Dimension panelSize=getMaximumSize();
         WIDTH=(int) panelSize.getWidth()/24-20;
         HEIGHT= (int)panelSize.getHeight()/37+25;
@@ -48,6 +47,8 @@ public class GamePanel extends JPanel implements KeyListener {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        addKeyListener(this);
+        startGame();
     }
 
 
@@ -60,7 +61,7 @@ public class GamePanel extends JPanel implements KeyListener {
         isRunning = true;
         timer = new Timer(DELAY, e -> gameLoop());
         timer.start();
-        gameLoop();
+//        gameLoop();
     }
 
     public void gameLoop() {
@@ -115,9 +116,11 @@ public class GamePanel extends JPanel implements KeyListener {
     }
 
     public void generateApple() {
-        Random random = new Random();
-        appleX = random.nextInt(((WIDTH-10) / UNIT_SIZE)) * UNIT_SIZE;
-        appleY = random.nextInt(((HEIGHT-10) / UNIT_SIZE)) * UNIT_SIZE;
+//generates the position of apple
+            Random random = new Random();
+            appleX = random.nextInt(((WIDTH - 10) / UNIT_SIZE)) * UNIT_SIZE;
+            appleY = random.nextInt(((HEIGHT - 10) / UNIT_SIZE)) * UNIT_SIZE;
+
     }
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -134,13 +137,22 @@ public class GamePanel extends JPanel implements KeyListener {
         }
 
         // Draw the apple
-        g.setColor(Color.red);
-        g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
-
+        if(isRunning) {
+            g.setColor(Color.red);
+            g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
+            this.repaint();
+        }
         // Game over message
-        if (!isRunning) {
+        if (!isRunning && snakeX.size()>0) {
             g.setFont(new Font("Arial", Font.BOLD, 40));
             g.drawString("Game Over",  WIDTH / 2 - 100, HEIGHT / 2);
+            this.repaint();
+        }
+        if(!isRunning){
+            g.setColor(Color.RED);
+            g.setFont(new Font("Arial", Font.BOLD, 60));
+            g.drawString("Start Game",  WIDTH / 2-120 , HEIGHT / 2);
+            this.repaint();
         }
 
     }
@@ -162,9 +174,14 @@ public class GamePanel extends JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
     }
-    public void getStart(boolean start){
-        if(start=true){
-            startGame();
-        }
-    }
+
+    //starting game after user selected new game in taskbar new game button
+//    public void getStart(boolean start){
+//        if(start){
+//            startGame();
+//        }
+//        else{
+//            isRunning=false;
+//        }
+//    }
 }
