@@ -4,6 +4,8 @@
       <root url="file://$PROJECT_DIR$/.." />
       <root url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" />
       <root url="file://$PROJECT_DIR$" />
+      <root url="jar://$PROJECT_DIR$/../sqljdbc_12.4.0.0_enu/sqljdbc_12.4/enu/jars/mssql-jdbc-12.4.0.jre8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../sqljdbc_12.4.0.0_enu/sqljdbc_12.4/enu/jars/mssql-jdbc-12.4.0.jre11.jar!/" />
     </CLASSES>
     <JAVADOC />
     <NATIVE>
@@ -43,6 +45,8 @@
       <root url="file://$PROJECT_DIR$/../practice/src" />
       <root url="file://$PROJECT_DIR$/../test/src" />
       <root url="file://$PROJECT_DIR$/src" />
+      <root url="jar://$PROJECT_DIR$/../sqljdbc_12.4.0.0_enu/sqljdbc_12.4/enu/jars/mssql-jdbc-12.4.0.jre8-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../sqljdbc_12.4.0.0_enu/sqljdbc_12.4/enu/jars/mssql-jdbc-12.4.0.jre11-sources.jar!/" />
     </SOURCES>
     <jarDirectory url="file://$USER_HOME$/snap/javafx-sdk-20.0.2/lib" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/.." recursive="false" type="SOURCES" />

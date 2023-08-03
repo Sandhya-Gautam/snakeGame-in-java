@@ -88,7 +88,7 @@ public class signin extends JPanel implements ActionListener {
         setFontForAllComponents(panel, new Font("Rust", Font.PLAIN, 20));
         sign_in.addActionListener(this);
         log_in.addActionListener(this);
-        setBackground(new Color(101, 176, 85));
+        setBackground(new Color(126,199,81));
 
     }
     public void actionPerformed(ActionEvent e) {

@@ -89,8 +89,12 @@ public class login extends JPanel implements ActionListener {
             signInPanel();
         }
         else {
+            String usrname, pwd;
+            usrname= username.getText();
+            pwd=password.getText();
             // When "Log-in" field in the signin class is clicked, show the login panel
-            loginPanel();
+            DatabaseConnection connection=new DatabaseConnection();
+            connection.record(usrname,pwd);
         }
     }
     // Method to show the sign-in panel
