@@ -2,11 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-
 public class taskbar extends JPanel {
 
     JButton home, newgame, pause, help;
@@ -49,22 +44,22 @@ public class taskbar extends JPanel {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if(e.getSource()=="newgame"){
-                            if(start==false) {
+                            if(!start) {
                                 start = true;
                             }
                         }
                         else if(e.getSource()=="pause"){
-                            if(pauseGame==false) {
+                            if(!pauseGame) {
                                 pauseGame = true;
                                 pause.setText("Play");
                             }
-                            if(pauseGame==true){
+                            if(pauseGame){
                                 pauseGame=false;
                                 pause.setText("Pause");
                             }
                         }
                         else if(e.getSource()=="help"){
-                            if(manual==false){
+                            if(!manual){
                                 manual=true;
                             }
                         }
@@ -73,7 +68,7 @@ public class taskbar extends JPanel {
             }
         }
     }
-
+//passing key action to gamepanel
     public static boolean isStart() {
         return start;
     }

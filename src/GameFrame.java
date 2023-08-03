@@ -1,12 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-//import java.awt.Container;
-
-import static java.awt.Color.*;
-
-/*import javax.swing.JFrame;*/
 public class GameFrame extends JFrame  {
     ScoreBoard score;
     GamePanel gameBase;
@@ -45,7 +38,7 @@ public class GameFrame extends JFrame  {
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        gameBase.getStart(taskbar.isStart());
+//        gameBase.getStart(taskbar.isStart());
     }
 
 }
