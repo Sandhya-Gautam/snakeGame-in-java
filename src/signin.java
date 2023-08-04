@@ -36,7 +36,7 @@ public class signin extends JPanel implements ActionListener {
         message= new JTextField("       Already  Have an account?");
         message.setEditable(false);
         log_in= new JButton("Log-in");
-        sign_in = new JButton("                        Sign-in                            ");
+        sign_in = new JButton("                   Sign-in                         ");
         panel2=new JPanel();
         panel2.add(message);
         panel2.add(log_in);
@@ -94,14 +94,25 @@ public class signin extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==sign_in) {
             String emailAddress= email.getText();
-            String passwordd= password.getText();
+            char[] pass= password.getPassword();
+            String passwordd=pass.toString();
+            System.out.println(passwordd);
+            String usrname= username.getText();
             if (!isValidEmail(emailAddress)) {
                 JOptionPane.showMessageDialog(this, "Invalid email", "Error", JOptionPane.ERROR_MESSAGE);
             }else if(!checkPasswordStrength(passwordd)){
                 JOptionPane.showMessageDialog(this, "Weak Password", "Error", JOptionPane.ERROR_MESSAGE);
             }
             else {
-                log.signInPanel();
+                //inserting data to database and returns true if data is inserted
+               boolean inserted= log.connection.keepRecord(usrname,emailAddress,passwordd);
+               //if data is inserted it switch back to login page to login
+               if(inserted){
+                   log.loginPanel();
+               }else{
+                   JOptionPane.showMessageDialog(this, "Invalid data", "Error", JOptionPane.ERROR_MESSAGE);
+                   log.signInPanel();
+               }
             }
         }else if(e.getSource()==log_in){
             log.loginPanel();

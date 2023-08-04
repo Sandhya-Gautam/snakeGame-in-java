@@ -13,6 +13,7 @@ public class login extends JPanel implements ActionListener {
     private JPasswordField password;
     private JButton login,sign_in;
     public static boolean sign,log;
+    DatabaseConnection connection=new DatabaseConnection();
     private BufferedImage background;
     private Dimension screenSize;
 
@@ -93,7 +94,6 @@ public class login extends JPanel implements ActionListener {
             usrname= username.getText();
             pwd=password.getText();
             // When "Log-in" field in the signin class is clicked, show the login panel
-            DatabaseConnection connection=new DatabaseConnection();
             connection.record(usrname,pwd);
         }
     }
