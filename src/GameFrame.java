@@ -4,13 +4,14 @@ public class GameFrame extends JFrame  {
     ScoreBoard score;
     GamePanel gameBase;
     taskbar task;
-    GameFrame() {
-        score = new ScoreBoard();
+    public static Timer timer;
+    GameFrame(String user) {
+        score = new ScoreBoard(user);
         gameBase = new GamePanel();
         task=new taskbar();
         setResizable(false);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize((int) screenSize.getWidth(), (int) screenSize.getHeight());
+        setSize(screenSize);
         this.getContentPane().setBackground(new Color(151,217,164));
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -38,7 +39,31 @@ public class GameFrame extends JFrame  {
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-//        gameBase.getStart(taskbar.isStart());
+        timer=new Timer(200,e->check());
+        timer.start();
     }
 
+
+  //  keep checking the button action
+    public void check(){
+        checkAction();
+    }
+
+
+    //detect the button action
+     public void  checkAction(){
+        if(taskbar.start){
+            gameBase.startGame();
+            taskbar.start=false;
+        }
+        if(taskbar.logout){
+
+
+        }
+        score.getScore(gameBase.giveScore());
+
+     }
+    public static void main(String[] args){
+       new GameFrame("Ram");
+    }
 }

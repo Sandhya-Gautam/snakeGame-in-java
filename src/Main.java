@@ -2,11 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Main extends JFrame{
-
-
-    public static void main(String[] args) throws Exception {
-        try {
-
+        public Main(){
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             JFrame frame = new JFrame("Nyoka");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -15,6 +11,12 @@ public class Main extends JFrame{
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
             frame.setSize(screenSize);
+        }
+
+    public static void main(String[] args) throws Exception {
+        try {
+                new Main();
+
 
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());

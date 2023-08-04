@@ -2,16 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-public class taskbar extends JPanel {
+public class taskbar extends JPanel  implements ActionListener{
 
-    JButton home, newgame, pause, help;
-    static boolean start=false,pauseGame=false,manual=false;
-
+    JButton logOut, newGame,  help;
+     public static boolean start=false,logout=false;
     taskbar() {
-        home = new JButton("Level");
-        newgame = new JButton("New Game");
-        pause = new JButton("Pause");
+         logOut= new JButton("Logout");
+        newGame = new JButton("New Game");
         help = new JButton("Help");
+
         setVisible(true);
         setBackground(new Color(121, 198, 136));
         GridBagLayout layout = new GridBagLayout();
@@ -22,62 +21,37 @@ public class taskbar extends JPanel {
         gbc.weighty = 1;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        add(home, gbc);
+        add(logOut, gbc);
         gbc.gridx = 0;
         gbc.gridy = 2;
-        add(newgame, gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        add(pause, gbc);
+        add(newGame, gbc);
         gbc.gridx = 0;
         gbc.gridy = 4;
         add(help, gbc);
+
         Dimension buttonSize = new Dimension(this.getWidth(), 100);
         Component[] components = this.getComponents();
         for (Component component : components) {
-            if (component instanceof JButton) {
                 JButton buttonComponent = (JButton) component;
                 buttonComponent.setBackground(new Color(47, 196, 112));
                 buttonComponent.setPreferredSize(buttonSize);
                 buttonComponent.setFont(new Font("Rust", Font.BOLD, 20));
-                buttonComponent.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if(e.getSource()=="newgame"){
-                            if(!start) {
-                                start = true;
-                            }
-                        }
-                        else if(e.getSource()=="pause"){
-                            if(!pauseGame) {
-                                pauseGame = true;
-                                pause.setText("Play");
-                            }
-                            if(pauseGame){
-                                pauseGame=false;
-                                pause.setText("Pause");
-                            }
-                        }
-                        else if(e.getSource()=="help"){
-                            if(!manual){
-                                manual=true;
-                            }
-                        }
-                    }
-                });
-            }
+                buttonComponent.addActionListener(this);
+
         }
     }
-//passing key action to gamepanel
-    public static boolean isStart() {
-        return start;
-    }
+    @Override
+    public void actionPerformed(ActionEvent e){
+        if(e.getSource()==logOut){
+            logout=true;
+        }
+         else if(e.getSource()==newGame){
+            start=true;
+         }
+         else{
+             new help();
+        }
 
-    public static boolean isManual() {
-        return manual;
-    }
 
-    public static boolean isPauseGame() {
-        return pauseGame;
     }
 }

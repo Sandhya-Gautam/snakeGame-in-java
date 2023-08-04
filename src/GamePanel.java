@@ -10,12 +10,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+import java.util.EventListener;
 public class GamePanel extends JPanel implements KeyListener {
-    private  int WIDTH;
-    private  int HEIGHT;
-
-    private BufferedImage backgroundImage;
+    private final  int WIDTH;
+    public static int highest;
+    private final int HEIGHT;
     private BufferedImage snakeBodyImage;
 
     private static final int UNIT_SIZE = 25;
@@ -26,10 +25,10 @@ public class GamePanel extends JPanel implements KeyListener {
     private int appleX;
     private int appleY;
     private char direction;
-    private boolean isRunning;
-    private Timer timer;
-    private int score;
-
+    public boolean isRunning;
+    public static Timer timer;
+    public static int score;
+    boolean start=false;
     public GamePanel() {
         setFocusable(true);
         Dimension panelSize=getMaximumSize();
@@ -39,40 +38,53 @@ public class GamePanel extends JPanel implements KeyListener {
         snakeY = new ArrayList<>();
         direction = 'R';
         isRunning = false;
-        score = 0;
-        setBorder(BorderFactory.createLineBorder(new Color(15, 179, 31), 10));
+        setBackground(new Color(82, 187, 102));
+        setBorder(BorderFactory.createLineBorder(new Color(13, 161, 31), 10));
         try {
             snakeBodyImage = ImageIO.read(new File("src/snake.png"));
-            backgroundImage = ImageIO.read(new File("src/background.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
         addKeyListener(this);
-        startGame();
+        setFocusable(true);
+        requestFocusInWindow();
+
     }
 
 
     public void startGame() {
+        score = 0;
+        start=true;
         snakeX.clear();
         snakeY.clear();
         snakeX.add(0); // starting head position
         snakeY.add(0);
         generateApple();
         isRunning = true;
+        addKeyListener(this);
         timer = new Timer(DELAY, e -> gameLoop());
         timer.start();
-//        gameLoop();
+
     }
 
     public void gameLoop() {
+        //checks if user clicks new game again
+        if(taskbar.start){
+           isRunning=false;
+        }
+       else{
+            timer.start();
+
+        }
+
+        //normal condition of running
         if (!isRunning) {
             timer.stop();
             return;
         }
-        move();
-        checkCollision();
-        repaint();
-
+            move();
+            checkCollision();
+            repaint();
     }
 
     public void move() {
@@ -82,10 +94,18 @@ public class GamePanel extends JPanel implements KeyListener {
         }
 
         switch (direction) {
-            case 'U' : snakeY.set(0, snakeY.get(0) - UNIT_SIZE);
-            case 'D' : snakeY.set(0, snakeY.get(0) + UNIT_SIZE);
-            case 'L' : snakeX.set(0, snakeX.get(0) - UNIT_SIZE);
-            case 'R' : snakeX.set(0, snakeX.get(0) + UNIT_SIZE);
+            case 'U' :
+                snakeY.set(0, snakeY.get(0) - UNIT_SIZE);
+                break;
+            case 'D' :
+                snakeY.set(0, snakeY.get(0) + UNIT_SIZE);
+                break;
+            case 'L' :
+                snakeX.set(0, snakeX.get(0) - UNIT_SIZE);
+                break;
+            case 'R' :
+                snakeX.set(0, snakeX.get(0) + UNIT_SIZE);
+                break;
         }
     }
 
@@ -107,6 +127,10 @@ public class GamePanel extends JPanel implements KeyListener {
         if (snakeX.get(0).equals(appleX) && snakeY.get(0).equals(appleY)) {
             // Increase the score and generate a new apple
             score++;
+            //setting top score
+            if(highest<=score){
+                highest=score;
+            }
             generateApple();
 
             // Grow the snake by adding a new segment
@@ -116,7 +140,7 @@ public class GamePanel extends JPanel implements KeyListener {
     }
 
     public void generateApple() {
-//generates the position of apple
+    //generates the position of apple
             Random random = new Random();
             appleX = random.nextInt(((WIDTH - 10) / UNIT_SIZE)) * UNIT_SIZE;
             appleY = random.nextInt(((HEIGHT - 10) / UNIT_SIZE)) * UNIT_SIZE;
@@ -124,37 +148,35 @@ public class GamePanel extends JPanel implements KeyListener {
     }
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (backgroundImage != null) {
-            g.drawImage(backgroundImage, 0, 0,  WIDTH,HEIGHT, this);
-        }
-        for (int i = 0; i < snakeX.size(); i++) {
-            if (i == 0) {
-                g.drawImage(snakeBodyImage, snakeX.get(i)+10, snakeY.get(i)+10, UNIT_SIZE, UNIT_SIZE, this);
-            } else {
-                g.setColor(Color.green);
-                g.fillRect(snakeX.get(i)+10, snakeY.get(i)+10, UNIT_SIZE, UNIT_SIZE);
-            }
-        }
-
-        // Draw the apple
-        if(isRunning) {
-            g.setColor(Color.red);
-            g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
-            this.repaint();
-        }
-        // Game over message
-        if (!isRunning && snakeX.size()>0) {
-            g.setFont(new Font("Arial", Font.BOLD, 40));
-            g.drawString("Game Over",  WIDTH / 2 - 100, HEIGHT / 2);
-            this.repaint();
-        }
-        if(!isRunning){
+        if(!start) {
             g.setColor(Color.RED);
             g.setFont(new Font("Arial", Font.BOLD, 60));
-            g.drawString("Start Game",  WIDTH / 2-120 , HEIGHT / 2);
-            this.repaint();
+            g.drawString("Start Game", WIDTH / 2 - 120, HEIGHT / 2);
         }
+        else {
+            for (int i = 0; i < snakeX.size(); i++) {
+                if (i == 0) {
+                    g.drawImage(snakeBodyImage, snakeX.get(i) + 10, snakeY.get(i) + 10, UNIT_SIZE, UNIT_SIZE, this);
+                } else {
+                    g.setColor(Color.green);
+                    g.fillRect(snakeX.get(i) + 10, snakeY.get(i) + 10, UNIT_SIZE, UNIT_SIZE);
+                }
+            }
 
+            // Draw the apple
+            if (isRunning) {
+                g.setColor(Color.red);
+                g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
+                this.repaint();
+            }
+            // Game over message
+            if (!isRunning) {
+                g.setColor(Color.RED);
+                g.setFont(new Font("Arial", Font.BOLD, 40));
+                g.drawString("Game Over", WIDTH / 2 - 100, HEIGHT / 2);
+                this.repaint();
+            }
+        }
     }
     @Override
     public void keyTyped(KeyEvent e) {
@@ -174,14 +196,8 @@ public class GamePanel extends JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
     }
+    public int giveScore(){
+        return score;
+    }
 
-    //starting game after user selected new game in taskbar new game button
-//    public void getStart(boolean start){
-//        if(start){
-//            startGame();
-//        }
-//        else{
-//            isRunning=false;
-//        }
-//    }
 }

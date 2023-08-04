@@ -1,5 +1,5 @@
-import javax.swing.*;
 import java.sql.*;
+
 
 public class DatabaseConnection {
    static String usr,passWord;
@@ -17,13 +17,15 @@ public class DatabaseConnection {
             Connection connection = DriverManager.getConnection(url, username,"admin123");
 
             // Step 3: Create a statement
-            Statement statement = connection.createStatement();
+            PreparedStatement statement = connection.prepareStatement("select count (id) from userDetails where password=? and username=?");
 
             // Step 4: Execute a query (Example: Retrieving data)
-            String query = "SELECT * FROM userDetails";
-            ResultSet resultSet = statement.executeQuery(query);
+            statement.setString(1,password);
+            statement.setString(2,userName);
+            ResultSet resultSet = statement.executeQuery();
 
             // Step 5: Process the result
+
             while (resultSet.next()) {
                 usr= resultSet.getString("username");
                 passWord = resultSet.getString("password");
@@ -34,7 +36,7 @@ public class DatabaseConnection {
 
             }
             if(count>0){
-                new GameFrame();
+                new GameFrame(userName);
             }
             // Step 6: Close the resources
             resultSet.close();
@@ -64,7 +66,8 @@ public class DatabaseConnection {
             PreparedStatement statement = connection.prepareStatement("insert into userDetails(username,email,password) values(?,?,?)");
 
             // Step 4: Execute a query (Example: Retrieving data)
-            statement.setString(1,userName);
+
+               statement.setString(1,userName);
             statement.setString(2,email);
             statement.setString(3,passWord);
             rowsAffected= statement.executeUpdate();
@@ -82,5 +85,6 @@ public class DatabaseConnection {
             return false;
         }
     }
+
 }
 
